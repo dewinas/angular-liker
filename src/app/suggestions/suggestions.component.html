@@ -1,0 +1,16 @@
+<div class="container">
+  <table class="suggestions">
+    <tr>
+      <th>Suggestions</th>
+      <th>Likes</th>
+    </tr>
+    <tr *ngFor="let suggestion of suggestionsList">
+      <td>{{ suggestion.title }}</td>
+      <td><button>{{ suggestion.likes }}</button></td>
+    </tr>
+  </table>
+  <form>
+    <input ngModel name="userSuggestion" type="text" placeholder="Add new suggestion">
+    <input type="submit" value="Add">
+  </form>
+</div>
