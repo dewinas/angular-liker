@@ -17,4 +17,7 @@ export class SuggestionsComponent {
     this.suggestionsList.push(new Suggestion('Item 4'));
   }
 
+  addSuggestion(title: string) {
+    this.suggestionsList.push(new Suggestion(title));
+  }
 }

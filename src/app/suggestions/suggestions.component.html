@@ -9,8 +9,12 @@
       <td><button>{{ suggestion.likes }}</button></td>
     </tr>
   </table>
-  <form>
-    <input ngModel name="userSuggestion" type="text" placeholder="Add new suggestion">
-    <input type="submit" value="Add">
-  </form>
+  <div>
+    <input 
+      #newSuggestion
+      (keyup.enter)="addSuggestion(newSuggestion.value)" 
+      type="text" 
+      placeholder="Add new suggestion">
+    <button (click)="addSuggestion(newSuggestion.value)" type="submit">Add</button>
+  </div>
 </div>
