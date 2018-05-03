@@ -9,7 +9,7 @@
     <tbody>
       <tr *ngFor="let suggestion of suggestionsList; let i = index">
         <td>{{ suggestion.title }}</td>
-        <td (click)="toggleLike(i)" class="like-btn">{{ suggestion.likes }} <img src="../assets/like.svg" alt="like icon"></td>
+        <td (click)="toggleLike(i)" class="like-btn">{{ suggestion.likes }} <img src="assets/like.svg" alt="like icon"></td>
       </tr>
     </tbody>
   </table>
