@@ -1,20 +1,24 @@
 <div class="container">
   <table class="suggestions">
-    <tr>
-      <th>Suggestions</th>
-      <th>Likes</th>
-    </tr>
-    <tr *ngFor="let suggestion of suggestionsList">
-      <td>{{ suggestion.title }}</td>
-      <td><button>{{ suggestion.likes }}</button></td>
-    </tr>
+    <thead>
+      <tr>
+        <th style="width:77%">Suggestion</th>
+        <th>Likes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let suggestion of suggestionsList; let i = index">
+        <td>{{ suggestion.title }}</td>
+        <td (click)="toggleLike(i)" class="like-btn">{{ suggestion.likes }} <img src="../assets/like.svg" alt="like icon"></td>
+      </tr>
+    </tbody>
   </table>
-  <div>
+  <form>
     <input 
       #newSuggestion
       (keyup.enter)="addSuggestion(newSuggestion.value)" 
       type="text" 
       placeholder="Add new suggestion">
-    <button (click)="addSuggestion(newSuggestion.value)" type="submit">Add</button>
-  </div>
+    <input (click)="addSuggestion(newSuggestion.value)" type="submit" value="Add">
+  </form>
 </div>
