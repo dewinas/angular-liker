@@ -17,5 +17,7 @@ export class Suggestion {
         this.likes--;
         this.liked = false;
     }
-
+    getLikeStatus() {
+        return this.liked;
+    }
 }
