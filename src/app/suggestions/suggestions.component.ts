@@ -18,7 +18,9 @@ export class SuggestionsComponent {
   }
 
   addSuggestion(title: string) {
-    this.suggestionsList.push(new Suggestion(this.suggestionsList.length, title));
+    if (title) {
+      this.suggestionsList.push(new Suggestion(this.suggestionsList.length, title));
+    }
   }
 
   //Add or remove like depending on the state

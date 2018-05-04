@@ -13,12 +13,12 @@
       </tr>
     </tbody>
   </table>
-  <form>
+  <form (ngSubmit)="addSuggestion(newSuggestion.value)">
     <input 
       #newSuggestion
-      (keyup.enter)="addSuggestion(newSuggestion.value)" 
+      name="userSuggestion"
       type="text" 
       placeholder="Add new suggestion">
-    <input (click)="addSuggestion(newSuggestion.value)" type="submit" value="Add">
+    <input  type="submit" value="Add">
   </form>
 </div>
