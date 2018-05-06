@@ -50,6 +50,7 @@ table.suggestions .like-btn {
     position: relative;
     padding: 10px 60px 10px 20px;
     transition: background 0.2s linear;
+    cursor: pointer;
 }
 table.suggestions .like-btn:hover {
     background: #CBD9F3;
@@ -71,6 +72,7 @@ input[type="submit"] {
     border: none;
     background: #5C7EBD;
     transition: background 0.2s linear;
+    cursor: pointer;
 }
 input[type="submit"]:hover {
     background: #7796CE;
