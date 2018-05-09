@@ -2,7 +2,7 @@ export class Suggestion {
     id: number;
     title: string = '';
     likes: number = 0;
-    liked: boolean = false;
+    private liked: boolean = false;
     
     constructor(id, title, likes = 0) {
         this.title = title;
