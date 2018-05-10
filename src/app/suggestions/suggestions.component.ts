@@ -32,7 +32,11 @@ export class SuggestionsComponent {
   }
 
   ngOnInit() {
-    this.auth.user.subscribe(user=>{this.user = user.uid});
+    this.auth.user.subscribe(user=>{
+      if (user) {
+        this.user = user.uid
+      }
+    });
 
     this.suggestionsCol = this.afs.collection('suggestions', ref => ref.orderBy('timestamp'));
     this.suggestionsList = this.suggestionsCol.snapshotChanges()

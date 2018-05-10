@@ -2,7 +2,7 @@
 <ng-template #guest>
   <p>Please login to get started</p>
   <button (click)="auth.googleLogin()" class="login-btn">
-    <img src="/assets/btn_google_dark.svg">
+    <img src="./assets/btn_google_dark.svg">
     Sign in with Google
   </button>
 </ng-template>
@@ -19,7 +19,7 @@
       <tbody>
         <tr *ngFor="let suggestion of suggestionsList | async">
           <td>{{ suggestion.data.title }}</td>
-          <td (click)="toggleLike(suggestion)" class="like-btn">{{ suggestion.data.likes }} <img *ngIf="suggestion.data.liked" src="/assets/like.svg" alt="like icon"></td>
+          <td (click)="toggleLike(suggestion)" class="like-btn">{{ suggestion.data.likes }} <img *ngIf="suggestion.data.liked" src="./assets/like.svg" alt="like icon"></td>
         </tr>
       </tbody>
     </table>
