@@ -103,3 +103,6 @@ button {
     padding: 10px 15px;
     margin-top: 30px;
 }
+[hidden] { 
+    display: none !important;
+}

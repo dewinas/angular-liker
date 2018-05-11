@@ -19,7 +19,7 @@
       <tbody>
         <tr *ngFor="let suggestion of suggestionsList | async">
           <td>{{ suggestion.data.title }}</td>
-          <td (click)="toggleLike(suggestion)" class="like-btn">{{ suggestion.data.likes }} <img *ngIf="suggestion.data.liked" src="./assets/like.svg" alt="like icon"></td>
+          <td (click)="toggleLike(suggestion)" class="like-btn">{{ suggestion.data.likedBy.length }} <img [hidden]="suggestion.data.likedBy.indexOf(user) == -1" src="./assets/like.svg" alt="like icon"></td>
         </tr>
       </tbody>
     </table>
@@ -27,8 +27,9 @@
       <input 
         [(ngModel)]="newSuggestion"
         name="userSuggestion"
-        type="text" 
-        placeholder="Add new suggestion">
+        type="text"
+        placeholder="Add new suggestion"
+        autocomplete="off">
       <button (click)="addSuggestion()" type="submit" class="btn">Add</button>
     </form>
   </div>

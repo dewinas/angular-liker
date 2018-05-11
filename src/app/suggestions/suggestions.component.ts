@@ -7,12 +7,7 @@ import 'rxjs/add/operator/map';
 
 interface  Suggestion {
   title: string;
-  likes: number;
   likedBy: string[];
-  liked: boolean;
-}
-interface SuggestionId extends Suggestion {
-  id: string;
 }
 @Component({
   selector: 'app-suggestions',
@@ -43,64 +38,30 @@ export class SuggestionsComponent {
       .map(res => {
         return res.map( suggestion => {
           let data = suggestion.payload.doc.data() as Suggestion;
-          data.liked = data.likedBy.indexOf(this.user) !== -1? true : false;
           const id = suggestion.payload.doc.id;
           return { id, data };  
         });
       });
+      console.log(this.suggestionsList);
   }
 
   addSuggestion() {
-    if (this.newSuggestion) {
-      this.afs.collection('suggestions').add({ 'title': this.newSuggestion, 'likes': 0, 'timestamp': new Date(), 'likedBy': [] });
+    if(this.newSuggestion) {
+      this.afs.collection('suggestions').add({ 'title': this.newSuggestion, 'timestamp': new Date(), 'likedBy': [] });
+      this.newSuggestion = '';
     }
   }
 
-  //Add or remove like depending on the state
   toggleLike(suggestion) {
-    if (!suggestion.data.liked) {
-      this.incrementLike(suggestion.id);
+    let index = suggestion.data.likedBy.indexOf(this.user);
+    const sgDocRef = this.afs.firestore.collection("suggestions").doc(suggestion.id);
+    if (index == -1) {
+      suggestion.data.likedBy.push(this.user);
     }
     else {
-      this.decrementLike(suggestion.id);
-    }
+      suggestion.data.likedBy.splice(index, 1);
+    } 
+    sgDocRef.update(suggestion.data);
   }
 
-  incrementLike(id) {
-    const sgDocRef = this.afs.firestore.collection("suggestions").doc(id);
-    this.afs.firestore.runTransaction(transaction => 
-      // This code may get re-run multiple times if there are conflicts.
-        transaction.get(sgDocRef)
-        .then(sgDoc => {
-          let likedBy = sgDoc.data().likedBy;
-          if (!likedBy) {
-            likedBy = [];
-          }
-          if (likedBy.indexOf(this.user) === -1) {
-            likedBy.push(this.user);
-            transaction.update(sgDocRef, { likes: sgDoc.data().likes + 1, likedBy: likedBy });
-          } else {
-            transaction.update(sgDocRef, { likes: sgDoc.data().likes, likedBy: likedBy });
-          }
-        }));
-  }
-  
-  decrementLike(id) {
-    const sgDocRef = this.afs.firestore.collection("suggestions").doc(id);
-    this.afs.firestore.runTransaction(transaction => 
-      // This code may get re-run multiple times if there are conflicts.
-        transaction.get(sgDocRef)
-        .then(sgDoc => {
-          let likedBy = sgDoc.data().likedBy;
-          if (likedBy) {
-            let index = likedBy.indexOf(this.user);
-            if (index !== -1) {
-              likedBy.splice(index, 1);
-              transaction.update(sgDocRef, { likes: sgDoc.data().likes - 1, likedBy: likedBy });
-            } else {
-              transaction.update(sgDocRef, { likes: sgDoc.data().likes, likedBy: likedBy });
-            }
-          }
-        }));
-  }
 }
